@@ -30,19 +30,19 @@ stages:
       size: 2504
     params:
       params.yaml:
-        featurize.max_features: 100
+        featurize.max_features: 300
         featurize.ngrams: 1
     outs:
     - path: data/features
-      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
-      size: 1556290
+      md5: b817c14dc2371dd8f4c9399834a6f18d.dir
+      size: 2453978
       nfiles: 2
   train:
     cmd: python src/train.py data/features artifacts/models/model.pkl
     deps:
     - path: data/features
-      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
-      size: 1556290
+      md5: b817c14dc2371dd8f4c9399834a6f18d.dir
+      size: 2453978
       nfiles: 2
     - path: src/train.py
       md5: e1c093f6437fa14605a9d630086d5f44
@@ -54,34 +54,34 @@ stages:
         train.seed: 20170428
     outs:
     - path: artifacts/models/model.pkl
-      md5: 8c1dfe267187e8c65ef29fe82c1e446d
-      size: 122047
+      md5: 5d8e0c59852f32aa73b1c2f9b33915b8
+      size: 196470
   evaluate:
     cmd: python src/evaluate.py artifacts/models/model.pkl data/features
     deps:
     - path: artifacts/models/model.pkl
-      md5: 8c1dfe267187e8c65ef29fe82c1e446d
-      size: 122047
+      md5: 5d8e0c59852f32aa73b1c2f9b33915b8
+      size: 196470
     - path: data/features
-      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
-      size: 1556290
+      md5: b817c14dc2371dd8f4c9399834a6f18d.dir
+      size: 2453978
       nfiles: 2
     - path: src/evaluate.py
       md5: 3c79f17a8a677147e70e89ebf3e7dcc2
       size: 2339
     outs:
     - path: artifacts.json
-      md5: ac1225e47028e6dc573af5fd181114e2
+      md5: f1e03512fe9a2107bc35f91116853ef3
       size: 73
     - path: artifacts/plots/confusion_matrix.json
-      md5: f3245ad79be5a9ccb7b20468a355a036
+      md5: 9874052f31fdb3c7fb07978ee8677688
       size: 122246
     - path: artifacts/plots/importance.png
-      md5: 1eb56583067896ef90d9c1846befaef6
-      size: 30599
+      md5: 72a981d9e1f897bfa1ae5c8aeac801cd
+      size: 30600
     - path: artifacts/plots/precision_recall.json
-      md5: 5f2d2cbbc7e6beb6f7b3f23632b8c9d1
-      size: 143878
+      md5: 44f64d3e67bbfacfc34605496771a9dd
+      size: 147186
     - path: artifacts/plots/roc.json
-      md5: dab02361adb4570c784e37e2ca9ba35d
-      size: 63478
+      md5: b32fe92a941a87c112081fa9c47532d2
+      size: 50868
