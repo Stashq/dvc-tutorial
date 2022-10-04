@@ -30,19 +30,19 @@ stages:
       size: 2504
     params:
       params.yaml:
-        featurize.max_features: 200
-        featurize.ngrams: 2
+        featurize.max_features: 100
+        featurize.ngrams: 1
     outs:
     - path: data/features
-      md5: f35d4cc2c552ac959ae602162b8543f3.dir
-      size: 2232588
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
       nfiles: 2
   train:
     cmd: python src/train.py data/features artifacts/models/model.pkl
     deps:
     - path: data/features
-      md5: f35d4cc2c552ac959ae602162b8543f3.dir
-      size: 2232588
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
       nfiles: 2
     - path: src/train.py
       md5: e1c093f6437fa14605a9d630086d5f44
@@ -54,34 +54,34 @@ stages:
         train.seed: 20170428
     outs:
     - path: artifacts/models/model.pkl
-      md5: f67b3a50598a5cbf4b24b0dd05eb8db9
-      size: 175774
+      md5: 8c1dfe267187e8c65ef29fe82c1e446d
+      size: 122047
   evaluate:
     cmd: python src/evaluate.py artifacts/models/model.pkl data/features
     deps:
     - path: artifacts/models/model.pkl
-      md5: f67b3a50598a5cbf4b24b0dd05eb8db9
-      size: 175774
+      md5: 8c1dfe267187e8c65ef29fe82c1e446d
+      size: 122047
     - path: data/features
-      md5: f35d4cc2c552ac959ae602162b8543f3.dir
-      size: 2232588
+      md5: f8f5cbc3188008a7542d02d63054d9d2.dir
+      size: 1556290
       nfiles: 2
     - path: src/evaluate.py
       md5: 3c79f17a8a677147e70e89ebf3e7dcc2
       size: 2339
     outs:
     - path: artifacts.json
-      md5: 0b7c2242e86d9f038d5f2b2a249b7cf9
-      size: 72
+      md5: ac1225e47028e6dc573af5fd181114e2
+      size: 73
     - path: artifacts/plots/confusion_matrix.json
-      md5: d68c9cab80d753767cb70bdecddc26f0
+      md5: f3245ad79be5a9ccb7b20468a355a036
       size: 122246
     - path: artifacts/plots/importance.png
-      md5: cd28098fb90f1e6964890ea81442804c
-      size: 32187
+      md5: 1eb56583067896ef90d9c1846befaef6
+      size: 30599
     - path: artifacts/plots/precision_recall.json
-      md5: 2656964e93af8218ca42018fb10817d0
-      size: 144093
+      md5: 5f2d2cbbc7e6beb6f7b3f23632b8c9d1
+      size: 143878
     - path: artifacts/plots/roc.json
-      md5: 55c5c7d4e885cc6069ad72daa467932a
-      size: 56923
+      md5: dab02361adb4570c784e37e2ca9ba35d
+      size: 63478
