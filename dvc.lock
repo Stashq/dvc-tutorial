@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py data/data.xml
+    deps:
+    - path: data/data.xml
+      md5: 22a1a2931c8370d3aeedd7183606fd7f
+      size: 14445097
+    - path: src/prepare.py
+      md5: f09ea0c15980b43010257ccb9f0055e2
+      size: 1576
+    params:
+      params.yaml:
+        prepare.seed: 20170428
+        prepare.split: 0.2
+    outs:
+    - path: data/prepared
+      md5: 153aad06d376b6595932470e459ef42a.dir
+      size: 8437363
+      nfiles: 2
+  featurize:
+    cmd: python src/featurization.py data/prepared data/features
+    deps:
+    - path: data/prepared
+      md5: 153aad06d376b6595932470e459ef42a.dir
+      size: 8437363
+      nfiles: 2
+    - path: src/featurization.py
+      md5: 264dc9f1f25bb30c87fa18b1ca4fea9d
+      size: 2504
+    params:
+      params.yaml:
+        featurize.max_features: 200
+        featurize.ngrams: 2
+    outs:
+    - path: data/features
+      md5: f35d4cc2c552ac959ae602162b8543f3.dir
+      size: 2232588
+      nfiles: 2
+  train:
+    cmd: python src/train.py data/features artifacts/models/model.pkl
+    deps:
+    - path: data/features
+      md5: f35d4cc2c552ac959ae602162b8543f3.dir
+      size: 2232588
+      nfiles: 2
+    - path: src/train.py
+      md5: e1c093f6437fa14605a9d630086d5f44
+      size: 980
+    params:
+      params.yaml:
+        train.min_split: 0.2
+        train.n_est: 100
+        train.seed: 20170428
+    outs:
+    - path: artifacts/models/model.pkl
+      md5: 2bc047b1fe82447c36608d5527f32594
+      size: 352481
+  evaluate:
+    cmd: python src/evaluate.py artifacts/models/model.pkl data/features
+    deps:
+    - path: artifacts/models/model.pkl
+      md5: 2bc047b1fe82447c36608d5527f32594
+      size: 352481
+    - path: data/features
+      md5: f35d4cc2c552ac959ae602162b8543f3.dir
+      size: 2232588
+      nfiles: 2
+    - path: src/evaluate.py
+      md5: 3c79f17a8a677147e70e89ebf3e7dcc2
+      size: 2339
+    outs:
+    - path: artifacts.json
+      md5: 6bcbe244adf04b64f00bbd4cb762a281
+      size: 73
+    - path: artifacts/plots/confusion_matrix.json
+      md5: 8957e145a244011e7d563c8469f50806
+      size: 122246
+    - path: artifacts/plots/importance.png
+      md5: 92d1292a8dbbe7a5d0b39f6bc6cc4648
+      size: 30949
+    - path: artifacts/plots/precision_recall.json
+      md5: b8bc6aa70a090c1f92d2fa0efc2a38ce
+      size: 149533
+    - path: artifacts/plots/roc.json
+      md5: a8d4344aebe1d5a8f589789120c49945
+      size: 55206
