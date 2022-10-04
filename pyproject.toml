@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "mlflow-tutorial"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "3.8.12"
+scikit-learn = "^1.1.2"
+torch = "^1.12.1"
+pandas = "^1.5.0"
+matplotlib = "^3.6.0"
+dvclive = "^0.11.0"
+pyaml = "^21.10.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^5.0.4"
+black = "^22.8.0"
+mypy = "^0.971"
+isort = "^5.10.1"
+ipykernel = "^6.16.0"
+
+[tool.black]
+line-length = 79
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+)/
+'''
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,56 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py data/data.xml
+    deps:
+    - data/data.xml
+    - src/prepare.py
+    params:
+    - prepare.seed
+    - prepare.split
+    outs:
+    - data/prepared
+  featurize:
+    cmd: python src/featurization.py data/prepared data/features
+    deps:
+    - data/prepared
+    - src/featurization.py
+    params:
+    - featurize.max_features
+    - featurize.ngrams
+    outs:
+    - data/features
+  train:
+    cmd: python src/train.py data/features artifacts/models/model.pkl
+    deps:
+    - data/features
+    - src/train.py
+    params:
+    - train.seed
+    - train.n_est
+    - train.min_split
+    outs:
+    - artifacts/models/model.pkl
+  evaluate:
+    cmd: python src/evaluate.py artifacts/models/model.pkl data/features
+    deps:
+    - data/features
+    - artifacts/models/model.pkl
+    - src/evaluate.py
+    metrics:
+    - artifacts/metrics.json:
+        cache: false
+    plots:
+    - artifacts/plots/importance.png
+    - artifacts/plots/confusion_matrix.json:
+        cache: false
+        template: confusion
+        x: actual
+        y: predicted
+    - artifacts/plots/precision_recall.json:
+        cache: false
+        x: recall
+        y: precision
+    - artifacts/plots/roc.json:
+        cache: false
+        x: fpr
+        y: tpr
