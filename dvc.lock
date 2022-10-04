@@ -50,18 +50,18 @@ stages:
     params:
       params.yaml:
         train.min_split: 0.2
-        train.n_est: 100
+        train.n_est: 50
         train.seed: 20170428
     outs:
     - path: artifacts/models/model.pkl
-      md5: 2bc047b1fe82447c36608d5527f32594
-      size: 352481
+      md5: f67b3a50598a5cbf4b24b0dd05eb8db9
+      size: 175774
   evaluate:
     cmd: python src/evaluate.py artifacts/models/model.pkl data/features
     deps:
     - path: artifacts/models/model.pkl
-      md5: 2bc047b1fe82447c36608d5527f32594
-      size: 352481
+      md5: f67b3a50598a5cbf4b24b0dd05eb8db9
+      size: 175774
     - path: data/features
       md5: f35d4cc2c552ac959ae602162b8543f3.dir
       size: 2232588
@@ -71,17 +71,17 @@ stages:
       size: 2339
     outs:
     - path: artifacts.json
-      md5: 6bcbe244adf04b64f00bbd4cb762a281
-      size: 73
+      md5: 0b7c2242e86d9f038d5f2b2a249b7cf9
+      size: 72
     - path: artifacts/plots/confusion_matrix.json
-      md5: 8957e145a244011e7d563c8469f50806
+      md5: d68c9cab80d753767cb70bdecddc26f0
       size: 122246
     - path: artifacts/plots/importance.png
-      md5: 92d1292a8dbbe7a5d0b39f6bc6cc4648
-      size: 30949
+      md5: cd28098fb90f1e6964890ea81442804c
+      size: 32187
     - path: artifacts/plots/precision_recall.json
-      md5: b8bc6aa70a090c1f92d2fa0efc2a38ce
-      size: 149533
+      md5: 2656964e93af8218ca42018fb10817d0
+      size: 144093
     - path: artifacts/plots/roc.json
-      md5: a8d4344aebe1d5a8f589789120c49945
-      size: 55206
+      md5: 55c5c7d4e885cc6069ad72daa467932a
+      size: 56923
