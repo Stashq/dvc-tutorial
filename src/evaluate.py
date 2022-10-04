@@ -10,7 +10,7 @@ from dvclive import Live
 from matplotlib import pyplot as plt
 
 
-live = Live("evaluation")
+live = Live("artifacts")
 
 if len(sys.argv) != 3:
     sys.stderr.write("Arguments error. Usage:\n")
@@ -46,7 +46,7 @@ precision, recall, prc_thresholds = metrics.precision_recall_curve(
 )
 nth_point = math.ceil(len(prc_thresholds) / 1000)
 prc_points = list(zip(precision, recall, prc_thresholds))[::nth_point]
-prc_file = os.path.join("evaluation", "plots", "precision_recall.json")
+prc_file = os.path.join("artifacts", "plots", "precision_recall.json")
 with open(prc_file, "w") as fd:
     json.dump(
         {
@@ -72,4 +72,4 @@ importances = model.feature_importances_
 forest_importances = pd.Series(importances, index=feature_names).nlargest(n=30)
 axes.set_ylabel("Mean decrease in impurity")
 forest_importances.plot.bar(ax=axes)
-fig.savefig(os.path.join("evaluation", "importance.png"))
+fig.savefig(os.path.join("artifacts", "plots", "importance.png"))

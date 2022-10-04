@@ -37,20 +37,20 @@ stages:
     - artifacts/models/model.pkl
     - src/evaluate.py
     metrics:
-    - artifacts/metrics.json:
+    - artifacts.json:
         cache: false
     plots:
     - artifacts/plots/importance.png
     - artifacts/plots/confusion_matrix.json:
-        cache: false
+        # cache: false
         template: confusion
         x: actual
         y: predicted
     - artifacts/plots/precision_recall.json:
-        cache: false
+        # cache: false
         x: recall
         y: precision
     - artifacts/plots/roc.json:
-        cache: false
+        # cache: false
         x: fpr
         y: tpr
